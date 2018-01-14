@@ -1,0 +1,41 @@
+{
+  "name": "history-replay",
+  "version": "0.0.0",
+  "description": "",
+  "main": "index.js",
+  "bin": {
+    "history-replay": "lib/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/wmzy/history-replay.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "scripts": {
+    "test": "nyc mocha -r babel-core/register -r should -r should-sinon",
+    "dev": "npm test -- --watch",
+    "start": "node lib/index",
+    "build": "babel src --out-dir lib",
+    "prepublish": "npm run build",
+    "coverage": "nyc report --reporter=text-lcov | coveralls"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.0",
+    "babel-plugin-transform-react-jsx": "^6.24.1",
+    "babel-preset-env": "^1.6.1",
+    "coveralls": "^3.0.0",
+    "lodash": "^4.17.4",
+    "mocha": "^4.0.1",
+    "nyc": "^11.3.0",
+    "should": "^13.1.3",
+    "should-sinon": "0.0.6",
+    "sinon": "^4.1.2"
+  },
+  "dependencies": {
+    "ink": "^0.3.1",
+    "ink-checkbox-list": "^1.3.1"
+  }
+}
