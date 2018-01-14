@@ -3,9 +3,7 @@
   "version": "0.1.2",
   "description": "",
   "main": "index.js",
-  "bin": {
-    "history-replay": "lib/index.js"
-  },
+  "bin": "lib/index.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/wmzy/history-replay.git"

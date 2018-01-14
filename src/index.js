@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 import {h, Component, render} from 'ink';
 import App from './App';
 
