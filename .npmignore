@@ -1,0 +1,11 @@
+# nyc
+coverage
+.nyc_output
+
+# IDE
+.idea
+.vscode
+
+
+/src
+/test
