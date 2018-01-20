@@ -2,7 +2,7 @@ import os from 'os';
 import fs from 'fs';
 import path from 'path';
 import _ from 'lodash/fp';
-import tailN from './tail-n';
+import tailN from 'tail-num';
 
 function getPath() {
 	if (process.env.HISTFILE) {
@@ -25,7 +25,7 @@ export default function getHistory() {
   return tailN(getPath(), 100)
     .then(_.map(line => {
 		  if (/^: \d+:0;/.test(line)) {
-		  	return line.slice(line.indexOf(';'));
+		  	return line.slice(line.indexOf(';') + 1);
 		  }
 
 		  return line;
