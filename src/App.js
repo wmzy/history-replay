@@ -1,10 +1,11 @@
 import {spawnSync} from 'child_process';
-import path from 'path';
+import fs from 'fs';
 import readline from 'readline';
 import _ from 'lodash/fp';
 import {h, Component, render} from 'ink';
 import {List, ListItem} from 'ink-checkbox-list';
 import getHistory from './get-history';
+import * as u from './util';
 
 export default class App extends Component {
   constructor(props) {
@@ -47,18 +48,19 @@ export default class App extends Component {
   handleSubmit(commands) {
     this.setState({results: commands});
     process.nextTick(() => {
-      commands.forEach(command =>
-        spawnSync(command, {stdio: 'inherit', shell: process.env.SHELL})
-      );
+      saveAsScript(commands)
+      spawnSync(u.scriptPath, {stdio: 'inherit'})
       process.exit();
     })
   }
 
   keyMap(chunk, key) {
     if (key.name === 'k')
-      process.stdin.emit('keypress', chunk, {name: 'up'})
+      return process.stdin.emit('keypress', chunk, {name: 'up'});
     if (key.name === 'j')
-      process.stdin.emit('keypress', chunk, {name: 'down'})
+      return process.stdin.emit('keypress', chunk, {name: 'down'});
+    if (key.name === 'q')
+      return process.stdin.emit('keypress', chunk, {name: 'escape'});
   }
 
   render() {
@@ -77,4 +79,9 @@ export default class App extends Component {
   	  </List>
     );
   }
+}
+
+function saveAsScript(commands) {
+  const shebang = `#! ${u.shellPath} -i`;
+  fs.writeFileSync(u.scriptPath, [shebang, ...commands].join('\n'), {mode: 0o766})
 }
