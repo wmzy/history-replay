@@ -83,5 +83,8 @@ export default class App extends Component {
 
 function saveAsScript(commands) {
   const shebang = `#! ${u.shellPath} -i`;
-  fs.writeFileSync(u.scriptPath, [shebang, ...commands].join('\n'), {mode: 0o766})
+  fs.writeFileSync(
+    u.scriptPath,
+    [shebang, ...commands.map(c => `echo '$${c}'\n${c}`)].join('\n'),
+    {mode: 0o766})
 }

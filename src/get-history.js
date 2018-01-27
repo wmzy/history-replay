@@ -29,6 +29,7 @@ export default function getHistory() {
 		  }
 
 		  return line;
-	  }))
+    }))
+    .then(_.reject(_.startsWith(process.argv0)))
     .catch(_.constant([]));
 };
